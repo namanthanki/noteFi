@@ -13,10 +13,13 @@
     "@radix-ui/react-label": "^2.0.2",
     "@tabler/icons-react": "^3.5.0",
     "@web3modal/ethers": "^4.2.1",
-    "clsx": "^2.1.1",
+    "antd": "^5.18.3",
     "axios": "^1.7.2",
+    "clsx": "^2.1.1",
     "ethers": "^6.12.1",
-    "framer-motion": "^11.1.9",
+    "flowbite": "^2.4.1",
+    "flowbite-react": "^0.10.1",
+    "framer-motion": "^11.2.13",
     "mini-svg-data-uri": "^1.4.4",
     "next": "14.2.3",
     "pino-pretty": "^11.0.0",
@@ -30,10 +33,10 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
+    "braces": ">=3.0.3",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "typescript": "^5",
-    "braces": ">=3.0.3",
     "ws": ">=8.17.1"
   }
 }

@@ -7,8 +7,8 @@ import {Web3Modal} from '../web3/web3Modal';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "dOptions",
-  description: "A truly decentralized Options marketplace",
+  title: "noteFi",
+  description: "A Truly Decentralized Options Marketplace On Canto 🚀",
 };
 
 export default function RootLayout({
