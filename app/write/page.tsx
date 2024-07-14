@@ -1,57 +1,39 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import Link from "next/link";
-import eth from '@/public/Ethereum_logo.png';
-import canto from "@/public/Canto_logo.png";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import eth from '@/public/Ethereum_logo.png'
+import can from '@/public/Canto_logo.png'
 
+// Example token data (could be fetched from an API)
 const tokens = [
-  { id: 1, name: "Ethereum", image: eth },
-  { id: 2, name: "WCANTO", image: canto }
+  { id: 1, name: "Ethereum", image: eth },  // Ensure path correctness
+  { id: 2, name: "WCANTO", image: can }       // Ensure path correctness
 ];
-
 export default function TokenCards() {
   return (
-    <>
-      <h1 className="mt-40 text-2xl px-4 md:text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 font-sans max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto">Select Token</h1>
-      <div className="flex justify-center items-center p-8">
-        <div className="grid grid-cols-3 gap-8 w-full max-w-7xl mx-auto"> {/* Adjusted container width and alignment */}
-          {tokens.map(token => (
-            <Link href={`/options/write/${token.name.toLowerCase()}`}>
-            <CardContainer key={token.id} className="inter-var flex flex-col items-center">
-              <CardBody className="group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black border-white/[0.2] w-full sm:w-[22rem] h-auto rounded-xl p-6 border text-center">
-                <CardItem
-                  translateZ="50"
-                  className="text-xl font-bold text-white"
-                >
-                  {token.name}
-                </CardItem>
-                <CardItem translateZ="100" className="w-full">
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="pt-16 text-center text-3xl lg:text-4xl font-bold text-gray-200 mb-6">Select a Token</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+        {tokens.map(token => (
+          <Link href={`/write/${token.name.toLowerCase()}`} key={token.id}>
+            <div className="block transform transition duration-300 hover:scale-105">
+              <div className="bg-gray-800 hover:bg-gray-950 text-gray-200 transition-all duration-300 ease-in-out p-4 lg:p-10 border-2 border-emerald-500 rounded-lg shadow-lg overflow-hidden">
+                <div className="relative h-48 lg:h-60">
                   <Image
                     src={token.image}
-                    height={1000}
-                    width={1000}
-                    className="h-60 w-full object-contain rounded-xl group-hover:shadow-xl"
-                    alt={token.name}
+                    alt={`${token.name} logo`}
+                    layout="fill"
+                    objectFit="contain" // This ensures the image scales correctly within the container
                   />
-                </CardItem>
-                {/* <div className="mt-4">
-                  <CardItem
-                    as={Link}
-                    href={`/options/write/${token.name.toLowerCase()}`}
-                    translateZ={20}
-                    className="px-6 py-2 rounded-xl bg-red-500 text-white text-sm font-bold"
-                  >
-                    Write
-                  </CardItem>
-                </div> */}
-              </CardBody>
-            </CardContainer>
-            </Link>
-          ))}
-        </div>
+                </div>
+                <div className="p-4 flex justify-between mt-2">
+                  <h3 className="text-lg font-semibold bg-primary px-4 py-2 rounded-md ">{token.name}</h3>
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
