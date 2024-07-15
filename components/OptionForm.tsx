@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { createOptionCall } from './interactions';
+import { createOptionCall } from '@/app/write/[token]/interactions';
 import { priceMulti } from '@/web3/Prices';
 import LoadingScreen from '@/components/LoadingScreen';
 import svg3 from '@/public/form_svg.svg';
