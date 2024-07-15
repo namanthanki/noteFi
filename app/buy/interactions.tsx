@@ -43,41 +43,62 @@ export const getOptions = async (address : any, walletProvider : any, chainId : 
         puts: []
     };
 
+    const curr_timestamp = Date.now();
+
     for(const i in callOptions) {
         const _callContract = new Contract(callOptions[i], callOptionABI, signer)
-        const _bought = await _callContract.bought()
-        const _inited = await _callContract.inited()
-        const _creator = await _callContract.creator()
-        if(_inited && !_bought && _creator != address) { 
-            const _asset = await _callContract.asset()
-            let _strikePrice = await _callContract.strikePrice()
-            _strikePrice = formatUnits(_strikePrice, 8)
-            let _premium = await _callContract.premium()
-            _premium = formatUnits(_premium, 18)
+        const _executed = await _callContract.executed()
+        if(!_executed) {
             let _expiration = await _callContract.expiration()
-            _expiration = formatTimestamp(_expiration)
-            let _quantity = await _callContract.quantity()
-            _quantity = formatUnits(_quantity, 18)
-            data.calls.push({contractAddr: callOptions[i], tokenImg: tokenMapping[_asset], strikePrice: _strikePrice, premium: _premium, expirationDate: _expiration, quantity: _quantity})
+            if(Number(_expiration)  * 1000 > curr_timestamp) {
+                const _bought = await _callContract.bought()
+                if(!_bought) {
+                    const _inited = await _callContract.inited()
+                    if(_inited) {
+                        const _creator = await _callContract.creator()
+                        if(_creator != address) {
+                            const _asset = await _callContract.asset()
+                            let _strikePrice = await _callContract.strikePrice()
+                            _strikePrice = formatUnits(_strikePrice, 8)
+                            let _premium = await _callContract.premium()
+                            _premium = formatUnits(_premium, 18)
+                            _expiration = formatTimestamp(_expiration)
+                            let _quantity = await _callContract.quantity()
+                            _quantity = formatUnits(_quantity, 18)
+                            data.calls.push({contractAddr: callOptions[i], tokenImg: tokenMapping[_asset], strikePrice: _strikePrice, premium: _premium, expirationDate: _expiration, quantity: _quantity})
+                        }
+                    }
+                }
+            }
         }
     }
 
     for(const i in putOptions) {
         const _putContract = new Contract(putOptions[i], putOptionABI, signer)
-        const _bought = await _putContract.bought()
-        const _inited = await _putContract.inited()
-        const _creator = await _putContract.creator()
-        if(_inited && !_bought && _creator != address) { 
-            const _asset = await _putContract.asset()
-            let _strikePrice = await _putContract.strikePrice()
-            _strikePrice = formatUnits(_strikePrice, 8)
-            let _premium = await _putContract.premium()
-            _premium = formatUnits(_premium, 18)
+        const _executed = await _putContract.executed()
+        if(!_executed) {
             let _expiration = await _putContract.expiration()
-            _expiration = formatTimestamp(_expiration)
-            let _quantity = await _putContract.quantity()
-            _quantity = formatUnits(_quantity, 18)
-            data.puts.push({contractAddr: putOptions[i], tokenImg: tokenMapping[_asset], strikePrice: _strikePrice, premium: _premium, expirationDate: _expiration, quantity: _quantity})
+            if(Number(_expiration)  * 1000 > curr_timestamp) {
+                const _bought = await _putContract.bought()
+                if(!_bought) {
+                    const _inited = await _putContract.inited()
+                    if(_inited) {
+                        const _creator = await _putContract.creator()
+                        if(_creator != address) { 
+                            const _asset = await _putContract.asset()
+                            let _strikePrice = await _putContract.strikePrice()
+                            _strikePrice = formatUnits(_strikePrice, 8)
+                            let _premium = await _putContract.premium()
+                            _premium = formatUnits(_premium, 18)
+                            let _expiration = await _putContract.expiration()
+                            _expiration = formatTimestamp(_expiration)
+                            let _quantity = await _putContract.quantity()
+                            _quantity = formatUnits(_quantity, 18)
+                            data.puts.push({contractAddr: putOptions[i], tokenImg: tokenMapping[_asset], strikePrice: _strikePrice, premium: _premium, expirationDate: _expiration, quantity: _quantity})
+                        }
+                    }
+                }
+            }
         }
     }
 
