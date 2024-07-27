@@ -16,7 +16,7 @@ const PriceBanner: React.FC = () => {
         };
 
         fetchPrices();
-        const interval = setInterval(fetchPrices, 60000);
+        const interval = setInterval(fetchPrices, 30000); // 30 seconds
 
         return () => clearInterval(interval);
     }, []);
@@ -37,7 +37,7 @@ const PriceBanner: React.FC = () => {
                     <div className="text-white">Loading...</div>
                 </div>
             ) : (
-                <div className="flex whitespace-nowrap animate-marquee">
+                <div className="flex justify-center items-center whitespace-nowrap">
                     <div className="flex space-x-6 mx-4">
                         <PriceItem name="ETH" price={prices.ethereum} />
                         <PriceItem name="WCANTO" price={prices.wcanto} />
