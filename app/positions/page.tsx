@@ -80,24 +80,23 @@ const PositionsPage = () => {
     >
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-2xl font-bold text-white flex items-center">
-          {position.type === 'CALL'
-            ? <span className="mr-2 text-green-500">▲</span>
-            : <span className="mr-2 text-red-500">▼</span>}
           {position.tokenName}
         </h3>
-        <span className={`px-3 py-1 rounded-full text-sm font-semibold
-          ${position.type === 'CALL'
-            ? 'bg-green-200 text-green-800'
-            : 'bg-red-200 text-red-800'}`}>
-          {position.type}
-        </span>
+        <div className="flex space-x-2">
+          <span className="px-3 py-1 rounded-full text-sm font-semibold bg-yellow-200 text-yellow-800">
+            {position.positionType}
+          </span>
+          <span className={`px-3 py-1 rounded-full text-sm font-semibold
+      ${position.type === 'CALL' ? 'bg-green-500 text-green-200' : 'bg-red-200 text-red-800'}`}>
+            {position.type}
+          </span>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <InfoItem label="Strike Price" value={`$${position.strikePrice}`} />
         <InfoItem label="Quantity" value={position.quantity} />
         <InfoItem label="Expiration" value={position.expiration} />
         <InfoItem label="Premium" value={`$${position.premiumPaid}`} />
-        <InfoItem label="Position Type" value={position.positionType} />
       </div>
       <div className="flex justify-end">
         {position.positionType === 'Bought' && activeTab === "active" && (position.rawExpiration * 1000 > Date.now()) ? (
