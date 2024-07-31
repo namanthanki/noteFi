@@ -1,4 +1,4 @@
-const Modal = ({ children, show, onClose }) => {
+const Modal = ({ children : any, show, onClose }) => {
     if (!show) return null;
 
     return (
